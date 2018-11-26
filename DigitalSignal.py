@@ -20,23 +20,23 @@ class DigitalSignal(Signal):
 
 class DI(DigitalSignal):
     def __init__(self, number):
-        super().__init__()
+        super().__init__(chan_type="di")
         self.number = number
 
     def _set(self, obj):
         pass
 
     def _get(self, obj):
-        return obj._read(self.number)
+        return obj._read(self.number, self.chan_type)
 
 
 class DO(DigitalSignal):
     def __init__(self, number):
-        super().__init__()
+        super().__init__(chan_type="do")
         self.number = number
 
     def _set(self, obj, value):
-        obj._write(self.number, value)
+        obj._write(self.number, self.chan_type, value)
 
     def _get(self, obj):
         pass

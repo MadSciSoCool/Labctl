@@ -1,7 +1,9 @@
 
 class Signal:
 
-    def __init__(self):
+    def __init__(self, chan_type):
+        # never directly create a Signal object
+        self.chan_type = chan_type
         pass
 
     def __get__(self, obj):
