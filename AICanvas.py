@@ -2,14 +2,13 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import numpy as np
 
-SAMPLE_PERIOD = 0.000002
+SAMPLE_PERIOD = 0.001
 
 
 class AICanvas(FigureCanvas):
-    def __init__(self, width=9, height=5, dpi=100, samples_per_screen=300, refresh_rate=1):
+    def __init__(self, width=9, height=5, dpi=100, samples_per_screen=300):
         self.fig = Figure(figsize=(width, height), dpi=dpi)
         super().__init__(self.fig)
-        self.refresh_rate = refresh_rate
         self.length = samples_per_screen
 
         # generate two subplots
@@ -36,7 +35,7 @@ class AICanvas(FigureCanvas):
         self.draw()
 
     def refresh_data(self, source):
-        self.data = self.data[self.refresh_rate:self.length]
-        self.data = np.hstack([self.data, source])
+        self.data = self.data[1:self.length]
+        self.data = np.append(self.data,source)
         self.fft_data = np.fft.rfft(self.data)
         self._plot()

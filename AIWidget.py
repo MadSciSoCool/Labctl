@@ -14,7 +14,7 @@ class AIWidget(QWidget):
         self.ui.setupUi(self)
         self.reader = reader
 
-        self.canvas = AICanvas(refresh_rate=self.reader.dppr)
+        self.canvas = AICanvas()
 
         # create a timer to control reading and refreshing
         self.timer = QTimer()
@@ -30,12 +30,12 @@ class AIWidget(QWidget):
         self.show()
 
     def _update_plot(self):
-        self.canvas.refresh_data(self.reader.read())
+        self.canvas.refresh_data(self.reader.read_one_sample())
 
 
 if __name__ == "__main__":
     dev = AcqDev()
-    reader = dev.add_ai_chan(channel=0, data_points_per_read=2)
+    reader = dev.add_test_ai_chan(channel=0)
     app = QApplication(sys.argv)
     ui = AIWidget(reader=reader)
     sys.exit(app.exec())
