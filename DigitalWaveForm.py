@@ -43,7 +43,7 @@ class DigitalWaveForm:
                     np_config[cursor_x, cursor_y] = flag
                     cursor_x = cursor_x + 1
                 flag = not flag
-                for i in range(cursor_x - 1, self.maximum_samples):
-                    np_config[cursor_x, cursor_y] = False
+                for i in range(cursor_x, self.maximum_samples):
+                    np_config[i, cursor_y] = False
             cursor_y = cursor_y + 1
         return np_config
